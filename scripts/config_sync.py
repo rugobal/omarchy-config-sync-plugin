@@ -1201,6 +1201,10 @@ def summary_for(rel: str) -> str:
         parts = rel.split("/")
         slug = parts[2] if len(parts) > 2 else ""
         return f"Custom theme files ({theme_display_name(slug)})" if slug else "Custom theme files"
+    if rel.startswith("omarchy/backgrounds/"):
+        parts = rel.split("/")
+        slug = parts[2] if len(parts) > 2 else ""
+        return f"Theme background ({theme_display_name(slug)})" if slug else "Theme background"
     if rel.startswith("omarchy/hooks/"):
         return "Automation hook"
     if rel.startswith("omarchy/agents/"):
@@ -1895,7 +1899,7 @@ def collect_inventory(ctx: Context, repo: Path) -> list[dict[str, Any]]:
     for name in sorted(hypr_names):
         add(f"hypr/{name}", local_hypr / name, repo_hypr / name, "hypr")
 
-    omarchy_roots = ["branding", "extensions", "hooks", "agents"]
+    omarchy_roots = ["branding", "extensions", "hooks", "agents", "backgrounds"]
     for sub in omarchy_roots:
         repo_sub = repo / "omarchy" / sub
         local_sub = ctx.config_omarchy / sub

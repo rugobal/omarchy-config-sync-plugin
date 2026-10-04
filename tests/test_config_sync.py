@@ -1616,6 +1616,20 @@ class SecurityHardeningTests(unittest.TestCase):
             hook_paths = [i["path"] for i in items if i["path"].startswith("omarchy/hooks/")]
             self.assertEqual(hook_paths, [])
 
+    def test_collect_inventory_includes_theme_backgrounds(self) -> None:
+        with TempHome() as env:
+            repo = make_config_repo(env.home / "cfg")
+            bg = repo / "omarchy" / "backgrounds" / "catppuccin" / "wall.jpg"
+            bg.parent.mkdir(parents=True, exist_ok=True)
+            bg.write_bytes(b"\xff\xd8\xff\xe0" + b"\0" * 32)
+            items = cs.collect_inventory(env.ctx, repo)
+            paths = {i["path"] for i in items}
+            self.assertIn("omarchy/backgrounds/catppuccin/wall.jpg", paths)
+            self.assertEqual(
+                cs.summary_for("omarchy/backgrounds/catppuccin/wall.jpg"),
+                "Theme background (Catppuccin)",
+            )
+
     def test_read_text_and_load_json_cap_oversized_files(self) -> None:
         big = self.tmp / "big.lua"
         big.write_text("x" * 100, encoding="utf-8")

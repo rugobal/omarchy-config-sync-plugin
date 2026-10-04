@@ -73,6 +73,7 @@ State lives in `~/.local/share/omarchy-config-sync/` so applying `shell.json` do
 | `omarchy/shell.json` | `~/.config/omarchy/shell.json` |
 | `omarchy/theme.name` | Selected theme (`omarchy theme set`); custom overlays under `omarchy/themes/<slug>/` (images skipped) |
 | `omarchy/{branding,extensions,hooks,agents}/` | same under `~/.config/omarchy/` |
+| `omarchy/backgrounds/<slug>/` | same under `~/.config/omarchy/backgrounds/` (downloaded theme wallpapers; subject to the per-file and repo-size limits) |
 | `plugins.json` | Plugins installed with git (`omarchy plugin add`): id, version, commit, and source URL. Never copied as files; see below. |
 | `plugins/*` | `~/.config/omarchy/plugins/` for plugins that are **not** git checkouts, file by file (skips this plugin; shebang/ELF helpers keep the execute bit) |
 | `bin/*` | `~/.local/bin/` (scripts already in the repo, plus local helpers named by bindings, hooks, or plugins) |
